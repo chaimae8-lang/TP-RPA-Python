@@ -1,0 +1,6 @@
+pandas>=2.0
+openpyxl>=3.1
+python-dotenv>=1.0
+pyautogui>=0.9.54
+selenium>=4.15
+playwright>=1.40

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Formulaire de contact - TP2 RPA</title>
+<style>
+  body { font-family: Arial, sans-serif; max-width: 520px; margin: 30px auto; }
+  label { display: block; margin-top: 12px; font-weight: bold; }
+  input, textarea { width: 100%; padding: 8px; box-sizing: border-box; }
+  button { margin-top: 14px; padding: 10px 18px; }
+  #resultats li { margin: 4px 0; }
+</style>
+</head>
+<body>
+  <h2>Formulaire de contact (TP2 RPA)</h2>
+  <form id="contact-form">
+    <label for="nom">Nom</label>
+    <input type="text" id="nom" name="nom" required>
+    <label for="email">Email</label>
+    <input type="email" id="email" name="email" required>
+    <label for="message">Message</label>
+    <textarea id="message" name="message" rows="4" required></textarea>
+    <button type="submit" id="envoyer">Envoyer</button>
+  </form>
+  <h3>Soumissions reçues : <span id="compteur">0</span></h3>
+  <ul id="resultats"></ul>
+
+<script>
+  // Le formulaire se vide après chaque envoi et remet le curseur sur "Nom"
+  // => permet à PyAutoGUI (navigation clavier) de saisir plusieurs lignes à la suite.
+  const form = document.getElementById("contact-form");
+  let n = 0;
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+    n++;
+    const li = document.createElement("li");
+    li.textContent = `${form.nom.value} | ${form.email.value} | ${form.message.value}`;
+    document.getElementById("resultats").appendChild(li);
+    document.getElementById("compteur").textContent = n;
+    form.reset();
+    form.nom.focus();
+  });
+  window.onload = () => form.nom.focus();
+</script>
+</body>
+</html>
